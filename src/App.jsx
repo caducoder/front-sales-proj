@@ -2,19 +2,20 @@ import { useState } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
 import { AppLayout } from "./components/layout";
+import AccountPage from "./pages/account";
+import AnalyticsHomepage from "./pages/analytics";
+import ClientsPage from "./pages/analytics/clients";
+import OrdersPage from "./pages/analytics/orders";
+import ProductsPage from "./pages/analytics/products";
+import AppointmentsHomepage from "./pages/appointments";
+import CalendarPage from "./pages/appointments/calendar";
 import HomePage from "./pages/home";
+import AnalyticsPage from "./pages/home/analytics";
+import DashboardPage from "./pages/home/dashboard";
 import LoginPage from "./pages/login";
 import { ForgotPassword } from "./pages/login/ForgotPassword";
 import RegisterPage from "./pages/register";
 import ResetPasswordPage from "./pages/resetPassword";
-import AnalyticsPage from "./pages/home/analytics";
-import ClientsPage from "./pages/analytics/clients";
-import ProductsPage from "./pages/analytics/products";
-import OrdersPage from "./pages/analytics/orders";
-import AnalyticsHomepage from "./pages/analytics";
-import DashboardPage from "./pages/home/dashboard";
-import AppointmentsHomepage from "./pages/appointments";
-import CalendarPage from "./pages/appointments/calendar";
 
 function App() {
   return (
@@ -31,6 +32,8 @@ function App() {
           <Route path="analytics/orders" Component={OrdersPage} />
           <Route path="appointments" Component={AppointmentsHomepage} />
           <Route path="appointments/calendar" Component={CalendarPage} />
+          <Route path="account" Component={AccountPage} />
+
         </Route>
         <Route path="/" element={<Navigate to="/login" />} />
         <Route path="/login" Component={LoginPage} />
