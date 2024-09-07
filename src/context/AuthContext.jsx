@@ -1,5 +1,6 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
+
 import api from "../api/axios";
 
 const AuthContext = createContext({
@@ -38,7 +39,7 @@ export function AuthProvider({ children }) {
 
     if (storagedToken && storagedUser) {
       const userParsed = JSON.parse(storagedUser);
-      console.log("Usuario =>", userParsed);
+
       setUser(userParsed);
       api.defaults.headers.Authorization = `Bearer ${storagedToken}`;
     }

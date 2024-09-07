@@ -1,47 +1,48 @@
+import { Button } from "@mantine/core";
 import {
   flexRender,
-  useReactTable,
   getCoreRowModel,
+  useReactTable,
 } from "@tanstack/react-table";
 import React, { useMemo, useState } from "react";
 
+import classes from "./ProductTable.module.css";
+
 const fallbackData = [];
 
-const columnsDef = [
-  {
-    header: "Name",
-    accessorKey: "name",
-  },
-  {
-    header: "Price",
-    accessorKey: "price",
-    cell: ({ cell, row }) => {
-      const valueBRL = new Intl.NumberFormat(undefined, {
-        style: "currency",
-        currency: "BRL",
-      }).format(Number(cell.getValue()) / 100);
-      return `${valueBRL}`;
-    },
-  },
-  {
-    header: "Quantity",
-    accessorKey: "quantity",
-  },
-];
-
-function ProductTable({ dataList }) {
-  const columns = useMemo(() => columnsDef, []);
+function ProductTable({ dataList, columns }) {
+  const columnsDef = useMemo(() => columns, []);
+  const [rowSelection, setRowSelection] = useState({});
+  const numOfSelectedRows = Object.keys(rowSelection).map(Number).length;
 
   const table = useReactTable({
-    columns,
+    columns: columnsDef,
     data: dataList ?? fallbackData,
+    state: {
+      rowSelection,
+    },
+    onRowSelectionChange: setRowSelection,
     getCoreRowModel: getCoreRowModel(),
   });
 
+  const handleProductDelete = () => {
+    console.log("Delete", Object.keys(rowSelection).map(Number));
+  };
+
   return (
     <div>
-      <table>
-        <thead>
+      <div
+        className={`${classes.fadeIn} ${
+          numOfSelectedRows > 0 ? classes.fadeInVisible : ""
+        }`}
+      >
+        <Button color="red" onClick={handleProductDelete}>
+          Deletar {numOfSelectedRows} produto{numOfSelectedRows > 1 ? "s" : ""}
+        </Button>
+      </div>
+
+      <table className={classes.table}>
+        <thead className={classes.thead}>
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
