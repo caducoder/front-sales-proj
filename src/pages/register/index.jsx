@@ -1,18 +1,8 @@
-import {
-  TextInput,
-  PasswordInput,
-  Text,
-  Paper,
-  Group,
-  Button,
-  Divider,
-  Checkbox,
-  Anchor,
-  Stack,
-  Container,
-} from "@mantine/core";
+import { Anchor, Button, Checkbox, Container, Divider, Group, Paper, PasswordInput, Stack, Text, TextInput } from "@mantine/core";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+
+import api from "../../api/axios";
 
 export function RegisterPage() {
   const navigate = useNavigate();
@@ -23,7 +13,14 @@ export function RegisterPage() {
   } = useForm();
 
   const sendForm = async (values) => {
-    console.log(values);
+    try {
+      const response = await api.post("/users", values);
+      console.log("Response", response);
+
+      navigate("/login");
+    } catch (error) {
+      console.log("Erro", error);
+    }
   };
 
   return (
@@ -57,6 +54,7 @@ export function RegisterPage() {
               required
               label="Password"
               placeholder="Your password"
+              {...register("password", { required: true })}
               error={
                 errors?.password &&
                 "Password should include at least 6 characters"
@@ -64,7 +62,7 @@ export function RegisterPage() {
               radius="md"
             />
 
-            <Checkbox label="I accept terms and conditions" checked={false} />
+            <Checkbox label="I accept terms and conditions" defaultChecked />
           </Stack>
 
           <Group justify="space-between" mt="xl">

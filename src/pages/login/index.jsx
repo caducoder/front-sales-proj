@@ -1,36 +1,35 @@
-import React from "react";
 import {
-  TextInput,
-  PasswordInput,
-  Checkbox,
   Anchor,
-  Paper,
-  Title,
-  Text,
+  Button,
+  Checkbox,
   Container,
   Group,
-  Button,
+  Paper,
+  PasswordInput,
+  Text,
+  TextInput,
+  Title,
 } from "@mantine/core";
-import { useNavigate } from "react-router-dom";
+import React from "react";
 import { useForm } from "react-hook-form";
-import api from "../../api/axios";
 import toast from "react-hot-toast";
+import { Navigate, useNavigate } from "react-router-dom";
+
+import api from "../../api/axios";
+import { useAuth } from "../../hooks/useAuth";
 
 function LoginPage() {
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
+  const { user, Login } = useAuth();
 
-  const sendData = async (values) => {
-    console.log(values);
-    try {
-      const response = await api.post("/sessions", values);
-
-      console.log(response);
-      navigate("/app");
-    } catch (error) {
-      toast.error(error?.response?.data.message);
-    }
+  const handleLogin = async (values) => {
+    Login(values);
   };
+
+  if (user) {
+    return <Navigate to="/app" />;
+  }
 
   return (
     <Container size={420} my={40}>
@@ -47,7 +46,7 @@ function LoginPage() {
       </Text>
 
       <Paper withBorder shadow="md" p={30} mt={30} radius="md">
-        <form onSubmit={handleSubmit(sendData)}>
+        <form onSubmit={handleSubmit(handleLogin)}>
           <TextInput
             label="Email"
             placeholder="you@email.dev"

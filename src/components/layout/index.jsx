@@ -1,12 +1,25 @@
-import { AppShell, Burger, Group, Skeleton } from "@mantine/core";
+import {
+  AppShell,
+  Burger,
+  Button,
+  Group,
+  Skeleton,
+  Space,
+} from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 
+import { useAuth } from "../../hooks/useAuth";
 import { DoubleNavbar } from "../doubleNavbar";
 
 export function AppLayout() {
+  const { user, Logout } = useAuth();
   const [mobileOpened, { open: openSidebar, close: closeSidebar }] =
     useDisclosure();
+
+  if (!user) {
+    return <Navigate to={"/login"} />;
+  }
 
   return (
     <AppShell
@@ -20,20 +33,22 @@ export function AppLayout() {
       padding="md"
     >
       <AppShell.Header>
-        <Group h="100%" px="md">
+        <Group h="100%" px="md" justify="space-between">
           <Burger
             opened={mobileOpened}
             onClick={openSidebar}
             hiddenFrom="sm"
             size="sm"
           />
-          {/* <Burger
-            opened={!desktopOpened}
-            onClick={toggleDesktop}
-            visibleFrom="sm"
-            size="sm"
-          /> */}
-          {/* <img src="https://img.logoipsum.com/285.svg" alt="Logo" width={150} /> */}
+          <div></div>
+          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+            <p>
+              Olá <b>{user?.name}</b>
+            </p>
+            <Button variant="outline" color={"red"} onClick={Logout}>
+              Sair
+            </Button>
+          </div>
         </Group>
       </AppShell.Header>
       <AppShell.Navbar p="0" component={"div"}>
