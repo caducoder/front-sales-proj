@@ -1,15 +1,4 @@
-import {
-  Anchor,
-  Button,
-  Checkbox,
-  Container,
-  Group,
-  Paper,
-  PasswordInput,
-  Text,
-  TextInput,
-  Title,
-} from "@mantine/core";
+import { Anchor, Button, Checkbox, Container, Group, Paper, PasswordInput, Text, TextInput, Title } from "@mantine/core";
 import React from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -69,6 +58,7 @@ function LoginPage() {
               Forgot password?
             </Anchor>
           </Group>
+          
           <Button type="submit" fullWidth mt="xl">
             Sign in
           </Button>

@@ -18,3 +18,13 @@
   margin: 0;
   padding: 0;
 }
+
+table {
+  position: relative;
+  border-spacing: 0;
+  border: none;
+  width: 100%;
+  text-align: center;
+  font-family: sans-serif;
+  background-color: #fff;
+}

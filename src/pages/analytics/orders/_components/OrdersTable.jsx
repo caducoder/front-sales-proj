@@ -1,12 +1,8 @@
-import { Button } from "@mantine/core";
 import { flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
-import React, { useMemo, useState } from "react";
-
-import classes from "./ProductTable.module.css";
+import React, { useMemo } from "react";
 
 const fallbackData = [];
-
-function ProductTable({ dataList, columns }) {
+function OrdersTable({ dataList, columns }) {
   const columnsDef = useMemo(() => columns, []);
 
   const table = useReactTable({
@@ -17,16 +13,18 @@ function ProductTable({ dataList, columns }) {
 
   return (
     <div>
-      <table className={classes.table}>
-        <thead className={classes.thead}>
+      <table>
+        <thead>
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
-                <th key={header.id}>
-                  {flexRender(
-                    header.column.columnDef.header,
-                    header.getContext()
-                  )}
+                <th key={header.id} colSpan={header.colSpan}>
+                  {header.isPlaceholder
+                    ? null
+                    : flexRender(
+                        header.column.columnDef.header,
+                        header.getContext()
+                      )}
                 </th>
               ))}
             </tr>
@@ -48,4 +46,4 @@ function ProductTable({ dataList, columns }) {
   );
 }
 
-export default ProductTable;
+export default OrdersTable;

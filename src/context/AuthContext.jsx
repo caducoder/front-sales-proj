@@ -1,5 +1,6 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 import api from "../api/axios";
 
@@ -14,15 +15,19 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
 
   async function Login({ email, password }) {
-    const { data } = await api.post("/sessions", {
-      email,
-      password,
-    });
+    try {
+      const { data } = await api.post("/sessions", {
+        email,
+        password,
+      });
 
-    setUser(data.user);
+      setUser(data.user);
 
-    localStorage.setItem("@App:user", JSON.stringify(data.user));
-    localStorage.setItem("@App:token", data.token);
+      localStorage.setItem("@App:user", JSON.stringify(data.user));
+      localStorage.setItem("@App:token", data.token);
+    } catch (error) {
+      toast.error(error?.response?.data.message);
+    }
   }
 
   function Logout() {

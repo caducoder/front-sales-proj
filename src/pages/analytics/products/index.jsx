@@ -1,39 +1,33 @@
-import { ActionIcon, Box, Button, Group, Title } from "@mantine/core";
-import { IconDotsVertical, IconPlus, IconRefresh } from "@tabler/icons-react";
+import { ActionIcon, Box, Button, Group, Modal, Title } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
+import {
+  IconDotsVertical,
+  IconPlus,
+  IconRefresh,
+  IconTrashFilled,
+} from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 
 import { getProducts } from "../../../api/Products";
+import AddProduct from "./_components/AddProduct";
 import IndeterminateCheckbox from "./_components/IndeterminateCheckbox";
 import ProductTable from "./_components/ProductTable";
 
 const columnsDef = [
   {
-    id: "selection",
+    id: "delete",
     // The header can use the table's getToggleAllRowsSelectedProps method
     // to render a checkbox
-    header: ({ table }) => (
-      <div>
-        <IndeterminateCheckbox
-          {...{
-            checked: table.getIsAllRowsSelected(),
-            indeterminate: table.getIsSomeRowsSelected(),
-            onChange: table.getToggleAllRowsSelectedHandler(),
-          }}
-        />
-      </div>
-    ),
+    header: () => null,
     cell: ({ row }) => (
-      <div>
-        <IndeterminateCheckbox
-          {...{
-            checked: row.getIsSelected(),
-            disabled: !row.getCanSelect(),
-            indeterminate: row.getIsSomeSelected(),
-            onChange: row.getToggleSelectedHandler(),
-          }}
-        />
-      </div>
+      <ActionIcon
+        variant="subtle"
+        color="red"
+        onClick={() => alert(row.original.id)}
+      >
+        <IconTrashFilled />
+      </ActionIcon>
     ),
   },
   {
@@ -71,7 +65,8 @@ const columnsDef = [
 ];
 
 function ProductsPage() {
-  const { isPending, data, refetch } = useQuery({
+  const [opened, { open, close }] = useDisclosure(false);
+  const { isPending, data, refetch, isRefetching } = useQuery({
     queryKey: ["products"],
     queryFn: getProducts,
   });
@@ -96,15 +91,23 @@ function ProductsPage() {
             variant="subtle"
             color="teal"
             onClick={() => refetch()}
-            loading={isPending}
+            loading={isRefetching}
           >
             <IconRefresh />
           </ActionIcon>
-          <Button variant="filled" color="teal" leftSection={<IconPlus />}>
+          <Button
+            variant="filled"
+            color="teal"
+            leftSection={<IconPlus />}
+            onClick={open}
+          >
             Adicionar
           </Button>
         </Group>
       </Box>
+      <Modal opened={opened} onClose={close} title="Register Product">
+        <AddProduct closeModal={close} />
+      </Modal>
       <ProductTable dataList={data} columns={columnsDef} />
     </div>
   );
