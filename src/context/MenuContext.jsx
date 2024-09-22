@@ -40,10 +40,10 @@ export const MenuProvider = ({ children }) => {
         setActiveLinks(["Customers", "Users"]);
         break;
       case "security":
-        setActiveLinks(["Users", "Roles"]);
+        setActiveLinks(["Access"]);
         break;
       case "settings":
-        setActiveLinks(["Profile", "Preferences"]);
+        setActiveLinks(["Preferences"]);
         break;
       // Adicione mais casos conforme necessário
       default:

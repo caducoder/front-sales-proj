@@ -69,56 +69,66 @@ export function AppLayout() {
   return (
     <div style={{ display: "flex", minHeight: "100vh" }}>
       <NavbarMinimalColored />
-      <Box
-        // className={classes.sideInnerBar}
+      <div
         style={{
-          transition: "all 0.4s ease",
-          width: opened ? 240 : 0,
-          transform: opened ? "translateX(0)" : "translateX(-240px)",
-          position: "relative",
+          display: "flex",
+          width: "100%",
+          maxWidth: "94vw",
+          overflow: "auto",
         }}
       >
-        <ActionIcon
+        <Box
+          // className={classes.sideInnerBar}
           style={{
-            position: "absolute",
-            top: 10,
-            right: opened ? -28 : -265,
             transition: "all 0.4s ease",
+            width: opened ? 200 : 0,
+            transform: opened ? "translateX(0)" : "translateX(-200px)",
+            position: "relative",
+            borderRight: "1px solid rgba(0, 0, 0, 0.2)",
           }}
-          onClick={toggle}
         >
-          {opened ? <IconArrowBigLeftFilled /> : <IconArrowBigRightFilled />}
-        </ActionIcon>
-        <Box p={12}>
-          <Text size="xl" fw={700}>
-            Menu
-          </Text>
+          <ActionIcon
+            style={{
+              position: "absolute",
+              top: 10,
+              right: opened ? -28 : -225,
+              transition: "all 0.4s ease",
+            }}
+            onClick={toggle}
+          >
+            {opened ? <IconArrowBigLeftFilled /> : <IconArrowBigRightFilled />}
+          </ActionIcon>
+          <Box p={12}>
+            <Text size="xl" fw={700}>
+              Menu
+            </Text>
+          </Box>
+          <div className={classes.main}>{links}</div>
         </Box>
-        <div className={classes.main}>{links}</div>
-      </Box>
 
-      <div style={{ flex: 1 }}>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "end",
-            gap: 12,
-            padding: "8px 12px",
-          }}
-        >
-          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-            <p>
-              <b>{user?.name}</b>
-            </p>
-            <Badge size="sm" color="cyan" radius={"xs"}>
-              {user?.role}
-            </Badge>
+        <div style={{ flex: 1, overflow: "auto" }}>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "end",
+              gap: 12,
+              padding: "8px 12px",
+            }}
+          >
+            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+              <p>
+                <b>{user?.name}</b>
+              </p>
+              <Badge size="sm" color="cyan" radius={"xs"}>
+                {user?.role}
+              </Badge>
+            </div>
           </div>
+          <main style={{ padding: 20, width: "100%", overflow: "scroll" }}>
+            <Outlet />
+          </main>
         </div>
-        <main style={{ padding: 20 }}>
-          <Outlet />
-        </main>
       </div>
     </div>
   );

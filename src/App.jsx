@@ -20,6 +20,7 @@ import ResetPasswordPage from "./pages/resetPassword";
 import SecurityPage from "./pages/security";
 import SettingsPage from "./pages/settings";
 import { MenuProvider } from "./context/MenuContext";
+import { AccessOptions } from "./pages/security/accessOptions";
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
             <Route path="account/customers" Component={ClientsPage} />
             <Route path="account/users" Component={UsersPage} />
             <Route path="security" Component={SecurityPage} />
+            <Route path="security/access" Component={AccessOptions} />
             <Route path="settings" Component={SettingsPage} />
           </Route>
           <Route path="/" element={<Navigate to="/login" />} />
