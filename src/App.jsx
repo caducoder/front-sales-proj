@@ -16,6 +16,7 @@ import LoginPage from "./pages/login";
 import { ForgotPassword } from "./pages/login/ForgotPassword";
 import RegisterPage from "./pages/register";
 import ResetPasswordPage from "./pages/resetPassword";
+import SecurityPage from "./pages/security";
 
 function App() {
   return (
@@ -33,7 +34,7 @@ function App() {
           <Route path="appointments" Component={AppointmentsHomepage} />
           <Route path="appointments/calendar" Component={CalendarPage} />
           <Route path="account" Component={AccountPage} />
-
+          <Route path="security" Component={SecurityPage} />
         </Route>
         <Route path="/" element={<Navigate to="/login" />} />
         <Route path="/login" Component={LoginPage} />

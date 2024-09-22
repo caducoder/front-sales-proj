@@ -1,5 +1,6 @@
 import {
   AppShell,
+  Badge,
   Burger,
   Button,
   Group,
@@ -42,9 +43,15 @@ export function AppLayout() {
           />
           <div></div>
           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-            <p>
-              Olá <b>{user?.name}</b>
-            </p>
+            <div>
+              <p>
+                Olá <b>{user?.name}</b>
+              </p>
+              <Badge size="xs" color="cyan">
+                {user?.role}
+              </Badge>
+            </div>
+
             <Button variant="outline" color={"red"} onClick={Logout}>
               Sair
             </Button>
