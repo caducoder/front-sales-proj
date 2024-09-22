@@ -18,32 +18,37 @@ import { ForgotPassword } from "./pages/login/ForgotPassword";
 import RegisterPage from "./pages/register";
 import ResetPasswordPage from "./pages/resetPassword";
 import SecurityPage from "./pages/security";
+import SettingsPage from "./pages/settings";
+import { MenuProvider } from "./context/MenuContext";
 
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/app" Component={AppLayout}>
-          <Route index Component={HomePage} />
-          <Route path="home" Component={HomePage} />
-          <Route path="home/dashboard" Component={DashboardPage} />
-          <Route path="home/analytics" Component={AnalyticsPage} />
-          <Route path="analytics" Component={AnalyticsHomepage} />
-          <Route path="analytics/products" Component={ProductsPage} />
-          <Route path="analytics/orders" Component={OrdersPage} />
-          <Route path="appointments" Component={AppointmentsHomepage} />
-          <Route path="appointments/calendar" Component={CalendarPage} />
-          <Route path="account" Component={AccountPage} />
-          <Route path="account/customers" Component={ClientsPage} />
-          <Route path="account/users" Component={UsersPage} />
-          <Route path="security" Component={SecurityPage} />
-        </Route>
-        <Route path="/" element={<Navigate to="/login" />} />
-        <Route path="/login" Component={LoginPage} />
-        <Route path="/register" Component={RegisterPage} />
-        <Route path="/forgot-password" Component={ForgotPassword} />
-        <Route path="/reset-password" Component={ResetPasswordPage} />
-      </Routes>
+      <MenuProvider>
+        <Routes>
+          <Route path="/app" Component={AppLayout}>
+            <Route index Component={HomePage} />
+            <Route path="home" Component={HomePage} />
+            <Route path="home/dashboard" Component={DashboardPage} />
+            <Route path="home/analytics" Component={AnalyticsPage} />
+            <Route path="analytics" Component={AnalyticsHomepage} />
+            <Route path="analytics/products" Component={ProductsPage} />
+            <Route path="analytics/orders" Component={OrdersPage} />
+            <Route path="appointments" Component={AppointmentsHomepage} />
+            <Route path="appointments/calendar" Component={CalendarPage} />
+            <Route path="account" Component={AccountPage} />
+            <Route path="account/customers" Component={ClientsPage} />
+            <Route path="account/users" Component={UsersPage} />
+            <Route path="security" Component={SecurityPage} />
+            <Route path="settings" Component={SettingsPage} />
+          </Route>
+          <Route path="/" element={<Navigate to="/login" />} />
+          <Route path="/login" Component={LoginPage} />
+          <Route path="/register" Component={RegisterPage} />
+          <Route path="/forgot-password" Component={ForgotPassword} />
+          <Route path="/reset-password" Component={ResetPasswordPage} />
+        </Routes>
+      </MenuProvider>
     </BrowserRouter>
   );
 }

@@ -9,6 +9,7 @@ import { AuthProvider } from "./context/AuthContext.jsx";
 
 import "./index.css";
 import "@mantine/core/styles.css";
+import { MenuProvider } from "./context/MenuContext.jsx";
 
 const queryClient = new QueryClient({
   defaultOptions: {
