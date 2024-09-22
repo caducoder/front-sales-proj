@@ -18,9 +18,9 @@ import {
   IconUser,
 } from "@tabler/icons-react";
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 import classes from "./DoubleNavbar.module.css";
-import { Link, useNavigate } from "react-router-dom";
 
 const mainLinksMockdata = [
   { icon: IconHome2, label: "Home" },
@@ -33,9 +33,9 @@ const mainLinksMockdata = [
 
 const sectionLinks = {
   Home: ["Dashboard", "Analytics"],
-  Analytics: ["Products", "Orders", "Clients"],
+  Analytics: ["Products", "Orders"],
   Appointments: ["Calendar"],
-  Account: ["Profile", "Preferences"],
+  Account: ["Customers", "Users"],
   Security: ["Data shared", "2FA"],
   Settings: ["Theme", "Languages"],
 };

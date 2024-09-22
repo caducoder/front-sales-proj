@@ -1,18 +1,5 @@
-import {
-  Box,
-  Button,
-  List,
-  rem,
-  TextInput,
-  ThemeIcon,
-  Title,
-} from "@mantine/core";
-import {
-  IconShield,
-  IconShieldCheck,
-  IconShieldFilled,
-  IconShieldLockFilled,
-} from "@tabler/icons-react";
+import { Box, Button, List, rem, TextInput, ThemeIcon, Title } from "@mantine/core";
+import { IconShieldLockFilled } from "@tabler/icons-react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import { useForm } from "react-hook-form";

@@ -3,8 +3,9 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
 import { AppLayout } from "./components/layout";
 import AccountPage from "./pages/account";
+import ClientsPage from "./pages/account/clients";
+import UsersPage from "./pages/account/users";
 import AnalyticsHomepage from "./pages/analytics";
-import ClientsPage from "./pages/analytics/clients";
 import OrdersPage from "./pages/analytics/orders";
 import ProductsPage from "./pages/analytics/products";
 import AppointmentsHomepage from "./pages/appointments";
@@ -28,12 +29,13 @@ function App() {
           <Route path="home/dashboard" Component={DashboardPage} />
           <Route path="home/analytics" Component={AnalyticsPage} />
           <Route path="analytics" Component={AnalyticsHomepage} />
-          <Route path="analytics/clients" Component={ClientsPage} />
           <Route path="analytics/products" Component={ProductsPage} />
           <Route path="analytics/orders" Component={OrdersPage} />
           <Route path="appointments" Component={AppointmentsHomepage} />
           <Route path="appointments/calendar" Component={CalendarPage} />
           <Route path="account" Component={AccountPage} />
+          <Route path="account/customers" Component={ClientsPage} />
+          <Route path="account/users" Component={UsersPage} />
           <Route path="security" Component={SecurityPage} />
         </Route>
         <Route path="/" element={<Navigate to="/login" />} />
