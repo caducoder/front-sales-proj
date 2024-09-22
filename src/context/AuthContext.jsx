@@ -3,6 +3,7 @@ import { createContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 import api from "../api/axios";
+import LoaderComponent from "../components/loader";
 
 const AuthContext = createContext({
   user: {},
@@ -13,6 +14,7 @@ const AuthContext = createContext({
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
+  const [checking, setChecking] = useState(true);
 
   async function Login({ email, password }) {
     try {
@@ -48,7 +50,13 @@ export function AuthProvider({ children }) {
       setUser(userParsed);
       api.defaults.headers.Authorization = `Bearer ${storagedToken}`;
     }
+
+    setChecking(false);
   }, []);
+
+  if (checking) {
+    return <LoaderComponent />;
+  }
 
   return (
     <AuthContext.Provider value={{ user, setUser, Login, Logout }}>

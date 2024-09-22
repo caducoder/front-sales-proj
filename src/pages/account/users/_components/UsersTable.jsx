@@ -56,13 +56,19 @@ const data = [
 
 const rolesData = ["admin", "visitor", "moderator"];
 
-export function UsersTable({ data }) {
+export function UsersTable({
+  data,
+  roles,
+  updateRole,
+  isMutating,
+  isEditable,
+}) {
   const rows = data.map((item) => (
     <Table.Tr key={item.id}>
       <Table.Td>
         <Group gap="sm">
           <Avatar size={40} src={item.avatar} radius={40} />
-          <div>
+          <div style={{ textAlign: "left" }}>
             <Text fz="sm" fw={500}>
               {item.name}
             </Text>
@@ -75,11 +81,14 @@ export function UsersTable({ data }) {
 
       <Table.Td>
         <Select
-          data={rolesData}
-          defaultValue={item.role}
+          data={roles.map((role) => ({ value: role.id, label: role.name }))}
+          defaultValue={roles.find((role) => role.name === item.role).id}
           variant="unstyled"
-          onChange={(value) => console.log(value)}
+          onChange={(_value, option) => {
+            updateRole(item.id, _value);
+          }}
           allowDeselect={false}
+          disabled={isMutating || !isEditable}
         />
       </Table.Td>
       <Table.Td>{dayjs(item.created_at).format("DD/MM/YYYY")}</Table.Td>

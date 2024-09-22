@@ -72,7 +72,7 @@ function OrdersPage() {
           onClick={() => refetch()}
           loading={isRefetching}
         >
-          <IconRefresh />
+          <IconRefresh size={18} />
         </ActionIcon>
       </Box>
       <OrdersTable dataList={data} columns={columnsDef} />

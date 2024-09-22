@@ -93,7 +93,7 @@ function ProductsPage() {
             onClick={() => refetch()}
             loading={isRefetching}
           >
-            <IconRefresh />
+            <IconRefresh size={18} />
           </ActionIcon>
           <Button
             variant="filled"

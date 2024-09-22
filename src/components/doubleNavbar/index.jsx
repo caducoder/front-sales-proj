@@ -1,24 +1,7 @@
-import {
-  ActionIcon,
-  Box,
-  rem,
-  Title,
-  Tooltip,
-  UnstyledButton,
-} from "@mantine/core";
-import {
-  IconArrowLeft,
-  IconCalendarStats,
-  IconDeviceDesktopAnalytics,
-  IconFingerprint,
-  IconGauge,
-  IconHome2,
-  IconSettings,
-  IconSignLeft,
-  IconUser,
-} from "@tabler/icons-react";
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { ActionIcon, Box, rem, Title, Tooltip, UnstyledButton } from "@mantine/core";
+import { IconArrowLeft, IconCalendarStats, IconDeviceDesktopAnalytics, IconFingerprint, IconGauge, IconHome2, IconSettings, IconSignLeft, IconUser } from "@tabler/icons-react";
+import { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import classes from "./DoubleNavbar.module.css";
 
@@ -41,6 +24,7 @@ const sectionLinks = {
 };
 
 export function DoubleNavbar({ closeSidebar }) {
+  const location = useLocation();
   const [active, setActive] = useState("Home");
   const [activeLink, setActiveLink] = useState("");
   const navigate = useNavigate();
