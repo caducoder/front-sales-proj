@@ -29,5 +29,5 @@ jobs:
         run: |
           echo "$SSH_PRIVATE_KEY" > keyfile
           chmod 600 keyfile
-          rsync -avz -e "ssh -i keyfile -o StrictHostKeyChecking=no" --delete dist/ carlosamerico@104.248.119.181:/var/www/admin.caducoder.dev.br/
+          rsync -avz -e "ssh -i keyfile -o StrictHostKeyChecking=no" --rsync-path="sudo rsync" --delete dist/ carlosamerico@104.248.119.181:/var/www/admin.caducoder.dev.br/
           rm keyfile
