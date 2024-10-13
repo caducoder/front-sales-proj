@@ -1,4 +1,16 @@
-import { Anchor, Button, Checkbox, Container, Divider, Group, Paper, PasswordInput, Stack, Text, TextInput } from "@mantine/core";
+import {
+  Anchor,
+  Button,
+  Checkbox,
+  Container,
+  Divider,
+  Group,
+  Paper,
+  PasswordInput,
+  Stack,
+  Text,
+  TextInput,
+} from "@mantine/core";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
@@ -14,7 +26,7 @@ export function RegisterPage() {
 
   const sendForm = async (values) => {
     try {
-      const response = await api.post("/users", values);
+      const response = await api.post("/sessions/register", values);
       console.log("Response", response);
 
       navigate("/login");
