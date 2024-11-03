@@ -16,6 +16,8 @@ import {
   IconSettings,
   IconSwitchHorizontal,
   IconUser,
+  IconCash,
+  IconForklift,
 } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 
@@ -56,6 +58,8 @@ const mockdata = [
   { icon: IconUser, label: "Account" },
   { icon: IconFingerprint, label: "Security" },
   { icon: IconSettings, label: "Settings" },
+  { icon: IconCash, label: "Finance" },
+  { icon: IconForklift, label: "Inventory" },
 ];
 
 export function NavbarMinimalColored() {

@@ -1,70 +1,15 @@
-import {
-  ActionIcon,
-  Badge,
-  Box,
-  Burger,
-  Button,
-  Group,
-  Skeleton,
-  Space,
-  Text,
-  Title,
-  Transition,
-} from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
+import { Badge } from "@mantine/core";
+
 import { Navigate, Outlet, useNavigate } from "react-router-dom";
 
 import { useAuth } from "../../hooks/useAuth";
 import { NavbarMinimalColored } from "../sideNavbar";
-import {
-  IconArrowBigLeftFilled,
-  IconArrowBigRightFilled,
-  IconArrowWaveLeftUp,
-} from "@tabler/icons-react";
-import classes from "./Layout.module.css";
-import { createContext } from "react";
-import { useMenu } from "../../hooks/useMenu";
-
-const linksMockdata = [
-  "Security",
-  "Settings",
-  "Dashboard",
-  "Releases",
-  "Account",
-  "Orders",
-  "Clients",
-  "Databases",
-  "Pull Requests",
-  "Open Issues",
-  "Wiki pages",
-];
 
 export function AppLayout() {
   const { user, Logout } = useAuth();
-  const { activeLinks, currentSegment, activeSection, handleNavigation } =
-    useMenu();
-  const [opened, { toggle }] = useDisclosure(true);
-  const navigate = useNavigate();
-
   if (!user) {
     return <Navigate to={"/login"} />;
   }
-
-  const links = activeLinks.map((link) => (
-    <a
-      className={classes.link}
-      data-active={activeSection === link.toLowerCase() || undefined}
-      href="#"
-      onClick={(event) => {
-        event.preventDefault();
-        console.log(`Cliquei em ${link}`);
-        handleNavigation(link);
-      }}
-      key={link}
-    >
-      {link}
-    </a>
-  ));
 
   return (
     <div style={{ display: "flex", minHeight: "100vh" }}>
@@ -77,35 +22,6 @@ export function AppLayout() {
           overflow: "auto",
         }}
       >
-        <Box
-          // className={classes.sideInnerBar}
-          style={{
-            transition: "all 0.4s ease",
-            width: opened ? 200 : 0,
-            transform: opened ? "translateX(0)" : "translateX(-200px)",
-            position: "relative",
-            borderRight: "1px solid rgba(0, 0, 0, 0.2)",
-          }}
-        >
-          <ActionIcon
-            style={{
-              position: "absolute",
-              top: 10,
-              right: opened ? -28 : -225,
-              transition: "all 0.4s ease",
-            }}
-            onClick={toggle}
-          >
-            {opened ? <IconArrowBigLeftFilled /> : <IconArrowBigRightFilled />}
-          </ActionIcon>
-          <Box p={12}>
-            <Text size="xl" fw={700}>
-              Menu
-            </Text>
-          </Box>
-          <div className={classes.main}>{links}</div>
-        </Box>
-
         <div style={{ flex: 1, overflow: "auto" }}>
           <div
             style={{
