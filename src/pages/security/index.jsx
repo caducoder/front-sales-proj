@@ -1,4 +1,12 @@
-import { Box, Button, List, rem, TextInput, ThemeIcon, Title } from "@mantine/core";
+import {
+  Box,
+  Button,
+  List,
+  rem,
+  TextInput,
+  ThemeIcon,
+  Title,
+} from "@mantine/core";
 import { IconShieldLockFilled } from "@tabler/icons-react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import React from "react";
@@ -6,6 +14,7 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
 import { createRole, getRoles } from "../../api/Roles";
+import { withAuth } from "../../hocs/withAuth";
 
 function SecurityPage() {
   const {
@@ -77,4 +86,6 @@ function SecurityPage() {
   );
 }
 
-export default SecurityPage;
+export default withAuth(SecurityPage, {
+  allowedRoles: ["admin"],
+});

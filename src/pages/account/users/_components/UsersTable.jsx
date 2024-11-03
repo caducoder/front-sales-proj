@@ -81,8 +81,13 @@ export function UsersTable({
 
       <Table.Td>
         <Select
-          data={roles.map((role) => ({ value: role.id, label: role.name }))}
-          defaultValue={roles.find((role) => role.name === item.role).id}
+          data={roles.map((role) => ({
+            value: String(role.id),
+            label: role.name,
+          }))}
+          defaultValue={String(
+            roles.find((role) => role.name === item.role).id
+          )}
           variant="unstyled"
           onChange={(_value, option) => {
             updateRole(item.id, _value);

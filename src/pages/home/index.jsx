@@ -6,16 +6,23 @@ import {
   SimpleGrid,
   Skeleton,
   rem,
+  Box,
+  Tabs,
 } from "@mantine/core";
 import React from "react";
 import { ActionsGrid } from "../../components/actionsGrid";
 import { StatsGroup } from "../../components/statsGroup";
 import { ProgressCardColored } from "../../components/progressCard";
+import { Route, Routes, useNavigate, useParams } from "react-router-dom";
+import DashboardPage from "./dashboard";
+import AnalyticsPage from "./analytics";
 
 const PRIMARY_COL_HEIGHT = rem(300);
 
 function HomePage() {
   const SECONDARY_COL_HEIGHT = `calc(${PRIMARY_COL_HEIGHT} / 2 - var(--mantine-spacing-md) / 2)`;
+  const navigate = useNavigate();
+  const { segment } = useParams();
 
   return (
     <>
@@ -44,7 +51,24 @@ function HomePage() {
           </Grid.Col>
         </Grid>
       </SimpleGrid>
-      {/* </Container> */}
+      <Box>
+        <Tabs
+          value={segment}
+          defaultValue={"dashboard"}
+          onChange={(value) => navigate(`/app/home/${value}`)}
+        >
+          <Tabs.List>
+            <Tabs.Tab value="dashboard">Dashboard</Tabs.Tab>
+            <Tabs.Tab value="analytics">Analytics</Tabs.Tab>
+          </Tabs.List>
+          <Tabs.Panel value="dashboard" pt="xs">
+            <DashboardPage />
+          </Tabs.Panel>
+          <Tabs.Panel value="analytics" pt="xs">
+            <AnalyticsPage />
+          </Tabs.Panel>
+        </Tabs>
+      </Box>
     </>
   );
 }

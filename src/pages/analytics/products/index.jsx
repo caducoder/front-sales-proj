@@ -7,62 +7,13 @@ import {
   IconTrashFilled,
 } from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import React, { useMemo } from "react";
 
-import { getProducts } from "../../../api/Products";
+import { deleteProduct, getProducts } from "../../../api/Products";
 import AddProduct from "./_components/AddProduct";
 import IndeterminateCheckbox from "./_components/IndeterminateCheckbox";
 import ProductTable from "./_components/ProductTable";
-
-const columnsDef = [
-  {
-    id: "delete",
-    // The header can use the table's getToggleAllRowsSelectedProps method
-    // to render a checkbox
-    header: () => null,
-    cell: ({ row }) => (
-      <ActionIcon
-        variant="subtle"
-        color="red"
-        onClick={() => alert(row.original.id)}
-      >
-        <IconTrashFilled />
-      </ActionIcon>
-    ),
-  },
-  {
-    header: "Name",
-    accessorKey: "name",
-  },
-  {
-    header: "Price",
-    accessorKey: "price",
-    cell: ({ cell, row }) => {
-      const valueBRL = new Intl.NumberFormat(undefined, {
-        style: "currency",
-        currency: "BRL",
-      }).format(Number(cell.getValue()) / 100);
-      return `${valueBRL}`;
-    },
-  },
-  {
-    header: "Quantity",
-    accessorKey: "quantity",
-  },
-  {
-    id: "Actions",
-    header: "Ação",
-    cell: ({ row }) => (
-      <ActionIcon
-        variant="subtle"
-        color="dark"
-        onClick={() => alert(JSON.stringify(row.original))}
-      >
-        <IconDotsVertical />
-      </ActionIcon>
-    ),
-  },
-];
+import toast from "react-hot-toast";
 
 function ProductsPage() {
   const [opened, { open, close }] = useDisclosure(false);
@@ -70,6 +21,66 @@ function ProductsPage() {
     queryKey: ["products"],
     queryFn: getProducts,
   });
+
+  const handleDeleteClick = async (productId) => {
+    try {
+      await deleteProduct(productId);
+      toast.success("Product deleted");
+    } catch (error) {
+      console.log("[ERRO]", error);
+      toast.error(error?.response?.data.error);
+    }
+  };
+
+  const columnsDef = [
+    {
+      id: "delete",
+      // The header can use the table's getToggleAllRowsSelectedProps method
+      // to render a checkbox
+      header: () => null,
+      cell: ({ row }) => (
+        <ActionIcon
+          variant="subtle"
+          color="red"
+          onClick={() => handleDeleteClick(row.original.id)}
+        >
+          <IconTrashFilled />
+        </ActionIcon>
+      ),
+    },
+    {
+      header: "Name",
+      accessorKey: "name",
+    },
+    {
+      header: "Price",
+      accessorKey: "price",
+      cell: ({ cell, row }) => {
+        const valueBRL = new Intl.NumberFormat(undefined, {
+          style: "currency",
+          currency: "BRL",
+        }).format(Number(cell.getValue()) / 100);
+        return `${valueBRL}`;
+      },
+    },
+    {
+      header: "Quantity",
+      accessorKey: "quantity",
+    },
+    {
+      id: "Actions",
+      header: "Ação",
+      cell: ({ row }) => (
+        <ActionIcon
+          variant="subtle"
+          color="dark"
+          onClick={() => alert(JSON.stringify(row.original))}
+        >
+          <IconDotsVertical />
+        </ActionIcon>
+      ),
+    },
+  ];
 
   if (isPending) {
     return <span>Loading...</span>;

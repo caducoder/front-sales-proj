@@ -4,12 +4,14 @@ import toast from "react-hot-toast";
 
 import api from "../api/axios";
 import LoaderComponent from "../components/loader";
+import { boolean } from "yup";
 
 const AuthContext = createContext({
   user: {},
   setUser: () => {},
   Login: () => {},
   Logout: () => {},
+  isLoading: true,
 });
 
 export function AuthProvider({ children }) {
@@ -33,7 +35,6 @@ export function AuthProvider({ children }) {
   }
 
   function Logout() {
-    console.log("SAIU");
     setUser(null);
 
     localStorage.removeItem("@App:user");
@@ -59,7 +60,9 @@ export function AuthProvider({ children }) {
   }
 
   return (
-    <AuthContext.Provider value={{ user, setUser, Login, Logout }}>
+    <AuthContext.Provider
+      value={{ user, setUser, Login, Logout, isLoading: checking }}
+    >
       {children}
     </AuthContext.Provider>
   );

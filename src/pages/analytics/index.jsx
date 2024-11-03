@@ -1,5 +1,5 @@
 import React from "react";
-import { Group, Paper, SimpleGrid, Text } from "@mantine/core";
+import { Box, Group, Paper, SimpleGrid, Tabs, Text } from "@mantine/core";
 import {
   IconUserPlus,
   IconDiscount2,
@@ -9,6 +9,10 @@ import {
   IconArrowDownRight,
 } from "@tabler/icons-react";
 import classes from "./StatsGrid.module.css";
+import { useNavigate, useParams } from "react-router-dom";
+import ProductsPage from "./products";
+import OrdersPage from "./orders";
+import { useHasModule } from "../../hooks/useHas";
 
 const icons = {
   user: IconUserPlus,
@@ -25,6 +29,10 @@ const data = [
 ];
 
 function AnalyticsHomepage() {
+  const navigate = useNavigate();
+  const { segment } = useParams();
+  const hasFinanceAccess = useHasModule(2);
+
   const stats = data.map((stat) => {
     const Icon = icons[stat.icon];
     const DiffIcon = stat.diff > 0 ? IconArrowUpRight : IconArrowDownRight;
@@ -57,10 +65,33 @@ function AnalyticsHomepage() {
       </Paper>
     );
   });
+
   return (
-    <div className={classes.root}>
-      <SimpleGrid cols={{ base: 1, xs: 2, md: 4 }}>{stats}</SimpleGrid>
-    </div>
+    <>
+      <div className={classes.root}>
+        {hasFinanceAccess && (
+          <SimpleGrid cols={{ base: 1, xs: 2, md: 4 }}>{stats}</SimpleGrid>
+        )}
+      </div>
+      <Box>
+        <Tabs
+          value={segment}
+          defaultValue={"products"}
+          onChange={(value) => navigate(`/app/analytics/${value}`)}
+        >
+          <Tabs.List>
+            <Tabs.Tab value="products">Products</Tabs.Tab>
+            <Tabs.Tab value="orders">Orders</Tabs.Tab>
+          </Tabs.List>
+          <Tabs.Panel value="products" pt="xs">
+            <ProductsPage />
+          </Tabs.Panel>
+          <Tabs.Panel value="orders" pt="xs">
+            <OrdersPage />
+          </Tabs.Panel>
+        </Tabs>
+      </Box>
+    </>
   );
 }
 
