@@ -31,14 +31,14 @@ export const withAuth = (WrappedComponent, config = null) => {
       }
     }
 
-    if (hasAccess && allowedModules && user.moduleId) {
+    if (hasAccess && allowedModules && user.module) {
       if (requireAll) {
         hasAccess = allowedModules.every(
-          (moduleId) => user.moduleId === moduleId
+          (moduleId) => user.module.id === moduleId
         );
       } else {
         hasAccess = allowedModules.some(
-          (moduleId) => user.moduleId === moduleId
+          (moduleId) => user.module.id === moduleId
         );
       }
     }

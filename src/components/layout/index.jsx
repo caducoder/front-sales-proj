@@ -4,6 +4,7 @@ import { Navigate, Outlet, useNavigate } from "react-router-dom";
 
 import { useAuth } from "../../hooks/useAuth";
 import { NavbarMinimalColored } from "../sideNavbar";
+import { AuthProvider } from "../../context/AuthContext";
 
 export function AppLayout() {
   const { user, Logout } = useAuth();

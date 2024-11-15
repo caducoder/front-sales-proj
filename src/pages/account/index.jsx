@@ -12,6 +12,7 @@ function AccountPage() {
       <Title mb={16}>User Account</Title>
       <p>Name: {user.name}</p>
       <p>Email: {user.email}</p>
+      <p>Setor: {user?.module?.name || "-"}</p>
       <p>
         Registrado desde:{" "}
         {new Intl.DateTimeFormat("pt-BR", {

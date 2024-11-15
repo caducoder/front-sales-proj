@@ -9,6 +9,7 @@ import { AuthProvider } from "./context/AuthContext.jsx";
 
 import "./index.css";
 import "@mantine/core/styles.css";
+import { BrowserRouter } from "react-router-dom";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -23,9 +24,11 @@ createRoot(document.getElementById("root")).render(
     <MantineProvider>
       <Toaster position="top-right" />
       <QueryClientProvider client={queryClient}>
-        <AuthProvider>
-          <App />
-        </AuthProvider>
+        <BrowserRouter>
+          <AuthProvider>
+            <App />
+          </AuthProvider>
+        </BrowserRouter>
       </QueryClientProvider>
     </MantineProvider>
   </StrictMode>

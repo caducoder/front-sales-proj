@@ -28,3 +28,9 @@ Currently, two official plugins are available:
 **Colaborador**
 
 > Login: jose@gmail.com senha: 123456
+
+## Academico
+
+**Colaborador**
+
+> Login karina@gmail.com senha: 123456

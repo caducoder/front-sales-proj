@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import api from "../api/axios";
 import LoaderComponent from "../components/loader";
 import { boolean } from "yup";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const AuthContext = createContext({
   user: {},
@@ -17,6 +18,7 @@ const AuthContext = createContext({
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [checking, setChecking] = useState(true);
+  const navigate = useNavigate();
 
   async function Login({ email, password }) {
     try {
@@ -42,17 +44,35 @@ export function AuthProvider({ children }) {
   }
 
   useEffect(() => {
-    const storagedUser = localStorage.getItem("@App:user");
-    const storagedToken = localStorage.getItem("@App:token");
+    const checkUser = async () => {
+      const storagedUser = localStorage.getItem("@App:user");
+      const storagedToken = localStorage.getItem("@App:token");
 
-    if (storagedToken && storagedUser) {
-      const userParsed = JSON.parse(storagedUser);
+      if (storagedToken && storagedUser) {
+        try {
+          api.defaults.headers.Authorization = `Bearer ${storagedToken}`;
+          const response = await api.get("/sessions/me");
 
-      setUser(userParsed);
-      api.defaults.headers.Authorization = `Bearer ${storagedToken}`;
-    }
+          const newToken = response.data.token; // suposição de que o novo token vem na resposta
+          localStorage.setItem("@App:token", newToken);
+          api.defaults.headers.Authorization = `Bearer ${newToken}`;
 
-    setChecking(false);
+          setUser(response.data.user); // ou os dados retornados do usuário
+        } catch (error) {
+          console.error(
+            "Token inválido ou expirado, redirecionando para login"
+          );
+          localStorage.removeItem("@App:user");
+          localStorage.removeItem("@App:token");
+          navigate("/login");
+        }
+      } else {
+        navigate("/login");
+      }
+      setChecking(false);
+    };
+
+    checkUser();
   }, []);
 
   if (checking) {

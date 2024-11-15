@@ -26,37 +26,35 @@ import InventoryPage from "./pages/inventory";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/app" Component={AppLayout}>
-          <Route index Component={HomePage} />
-          <Route path="home" Component={HomePage} />
-          <Route path="home/:segment" Component={HomePage} />
-          {/* <Route path="home/dashboard" Component={DashboardPage} />
+    <Routes>
+      <Route path="/app" Component={AppLayout}>
+        <Route index Component={HomePage} />
+        <Route path="home" Component={HomePage} />
+        <Route path="home/:segment" Component={HomePage} />
+        {/* <Route path="home/dashboard" Component={DashboardPage} />
             <Route path="home/analytics" Component={AnalyticsPage} /> */}
-          <Route path="analytics" Component={AnalyticsHomepage} />
-          <Route path="analytics/:segment" Component={AnalyticsHomepage} />
-          {/* <Route path="analytics/products" Component={ProductsPage} />
+        <Route path="analytics" Component={AnalyticsHomepage} />
+        <Route path="analytics/:segment" Component={AnalyticsHomepage} />
+        {/* <Route path="analytics/products" Component={ProductsPage} />
             <Route path="analytics/orders" Component={OrdersPage} /> */}
-          <Route path="appointments" Component={AppointmentsHomepage} />
-          <Route path="appointments/calendar" Component={CalendarPage} />
-          <Route path="account" Component={AccountPage} />
-          <Route path="account/customers" Component={ClientsPage} />
-          <Route path="account/users" Component={UsersPage} />
-          <Route path="security" Component={SecurityPage} />
-          <Route path="security/access" Component={AccessOptions} />
-          <Route path="finance" Component={FinancePage} />
-          <Route path="inventory" Component={InventoryPage} />
-          <Route path="settings" Component={SettingsPage} />
-          <Route path="unauthorized" Component={UnauthorizedPage} />
-        </Route>
-        <Route path="/" element={<Navigate to="/login" />} />
-        <Route path="/login" Component={LoginPage} />
-        <Route path="/register" Component={RegisterPage} />
-        <Route path="/forgot-password" Component={ForgotPassword} />
-        <Route path="/reset-password" Component={ResetPasswordPage} />
-      </Routes>
-    </BrowserRouter>
+        <Route path="appointments" Component={AppointmentsHomepage} />
+        <Route path="appointments/calendar" Component={CalendarPage} />
+        <Route path="account" Component={AccountPage} />
+        <Route path="account/customers" Component={ClientsPage} />
+        <Route path="account/users" Component={UsersPage} />
+        <Route path="security" Component={SecurityPage} />
+        <Route path="security/access" Component={AccessOptions} />
+        <Route path="finance" Component={FinancePage} />
+        <Route path="inventory" Component={InventoryPage} />
+        <Route path="settings" Component={SettingsPage} />
+        <Route path="unauthorized" Component={UnauthorizedPage} />
+      </Route>
+      <Route path="/" element={<Navigate to="/login" />} />
+      <Route path="/login" Component={LoginPage} />
+      <Route path="/register" Component={RegisterPage} />
+      <Route path="/forgot-password" Component={ForgotPassword} />
+      <Route path="/reset-password" Component={ResetPasswordPage} />
+    </Routes>
   );
 }
 

@@ -13,6 +13,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import ProductsPage from "./products";
 import OrdersPage from "./orders";
 import { useHasModule } from "../../hooks/useHas";
+import { withAuth } from "../../hocs/withAuth";
 
 const icons = {
   user: IconUserPlus,
@@ -95,4 +96,7 @@ function AnalyticsHomepage() {
   );
 }
 
-export default AnalyticsHomepage;
+export default withAuth(AnalyticsHomepage, {
+  allowedRoles: ["coordinator", "collaborator"],
+  allowedModules: [4],
+});
