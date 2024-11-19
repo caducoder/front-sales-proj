@@ -23,6 +23,7 @@ import { AccessOptions } from "./pages/security/accessOptions";
 import UnauthorizedPage from "./pages/unauthorized";
 import FinancePage from "./pages/finance";
 import InventoryPage from "./pages/inventory";
+import PermissionPanel from "./pages/security/permissions/PermissionPanel";
 
 function App() {
   return (
@@ -42,7 +43,9 @@ function App() {
         <Route path="account" Component={AccountPage} />
         <Route path="account/customers" Component={ClientsPage} />
         <Route path="account/users" Component={UsersPage} />
-        <Route path="security" Component={SecurityPage} />
+        <Route path="security" Component={SecurityPage}>
+          <Route path="permissions/:roleId" Component={PermissionPanel} />
+        </Route>
         <Route path="security/access" Component={AccessOptions} />
         <Route path="finance" Component={FinancePage} />
         <Route path="inventory" Component={InventoryPage} />

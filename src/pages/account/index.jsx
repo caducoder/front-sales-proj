@@ -2,9 +2,11 @@ import { Box, Title } from "@mantine/core";
 import React from "react";
 
 import { useAuth } from "../../hooks/useAuth";
+import UsersPage from "./users";
 
 function AccountPage() {
   const { user } = useAuth();
+  const isAdmin = user?.role === "admin";
 
   return (
     <div>
@@ -20,6 +22,7 @@ function AccountPage() {
           timeStyle: "short",
         }).format(new Date(user?.created_at))}
       </p>
+      {isAdmin && <UsersPage />}
     </div>
   );
 }

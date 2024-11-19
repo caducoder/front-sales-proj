@@ -81,6 +81,9 @@ export function UsersTable({
 
       <Table.Td>
         <Select
+          styles={{
+            input: { textTransform: "capitalize" },
+          }}
           data={roles.map((role) => ({
             value: String(role.id),
             label: role.name,
@@ -93,9 +96,10 @@ export function UsersTable({
             updateRole(item.id, _value);
           }}
           allowDeselect={false}
-          disabled={isMutating || !isEditable}
+          disabled={isMutating || !isEditable || item.role === "admin"}
         />
       </Table.Td>
+      <Table.Td>{item?.module?.name || "-"}</Table.Td>
       <Table.Td>{dayjs(item.created_at).format("DD/MM/YYYY")}</Table.Td>
       <Table.Td>
         <Badge fullWidth variant="light">
@@ -112,6 +116,7 @@ export function UsersTable({
           <Table.Tr>
             <Table.Th>Employee</Table.Th>
             <Table.Th>Role</Table.Th>
+            <Table.Th>Module</Table.Th>
             <Table.Th>Since</Table.Th>
             <Table.Th>Status</Table.Th>
           </Table.Tr>

@@ -15,15 +15,20 @@ import toast from "react-hot-toast";
 
 import { createRole, getRoles } from "../../api/Roles";
 import { withAuth } from "../../hocs/withAuth";
+import PermissionPanel from "./permissions/PermissionPanel";
+import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 
 function SecurityPage() {
+  const navigate = useNavigate();
+  const { roleId } = useParams();
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm();
   const queryClient = useQueryClient();
-  const { data, isPending, isRefetching } = useQuery({
+  const { data, isPending, isRefetching, isError } = useQuery({
     queryKey: ["roles"],
     queryFn: getRoles,
   });
@@ -33,6 +38,7 @@ function SecurityPage() {
     },
     onSuccess: (response) => {
       console.log("Cargo criado com sucesso", response);
+      setValue("name", "");
       queryClient.invalidateQueries({ queryKey: ["roles"] });
       toast.success("Cargo criado com sucesso");
     },
@@ -62,11 +68,15 @@ function SecurityPage() {
           </Box>
         </form>
       </Box>
+
       {isPending || isRefetching ? (
         <span>Loading...</span>
+      ) : isError ? (
+        <p>Erro</p>
       ) : (
         <List
           spacing="xs"
+          style={{ gap: 8 }}
           size="sm"
           center
           icon={
@@ -78,10 +88,18 @@ function SecurityPage() {
           }
         >
           {data.map((role) => (
-            <List.Item key={role.id}>{role.name}</List.Item>
+            <List.Item key={role.id}>
+              <Button
+                onClick={() => navigate(`permissions/${role.id}`)}
+                variant={roleId == role.id ? "filled" : "subtle"}
+              >
+                {role.name}
+              </Button>
+            </List.Item>
           ))}
         </List>
       )}
+      <Outlet />
     </div>
   );
 }

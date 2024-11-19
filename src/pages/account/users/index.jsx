@@ -1,4 +1,4 @@
-import { Title } from "@mantine/core";
+import { Button, Title } from "@mantine/core";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import toast from "react-hot-toast";
@@ -39,6 +39,9 @@ function UsersPage() {
   return (
     <div>
       <Title mb={16}>Application Users</Title>
+      <Button onClick={refetch} loading={isRefetching}>
+        Refresh
+      </Button>
       {isPendingUsers || isPendingRoles ? (
         <span>Loading...</span>
       ) : (
